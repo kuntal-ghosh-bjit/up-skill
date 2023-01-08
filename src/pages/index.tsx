@@ -1,11 +1,48 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "@next/font/google";
-import AddressForm from "./AddressForm";
-import Checkout from "@/pages/Checkout";
+import Checkout from "@/components/organism/Checkout";
+import { useReducer } from "react";
+import { IOrder } from "@/model/order";
+import { OrderContext } from "@/contexts/OrderContext";
 const inter = Inter({ subsets: ["latin"] });
 
+// An enum with all the types of actions to use in our reducer
+export enum OrderActionKind {
+  FIRSTNAME = "firstName",
+  LASTNAME = "lastName",
+  ADDRESS = "address",
+}
+
+// An interface for our actions
+interface OrderAction {
+  type: OrderActionKind;
+  payload: string;
+}
+
+function reducer(state: IOrder, { type, payload }: OrderAction): IOrder {
+  switch (type) {
+    case OrderActionKind.FIRSTNAME:
+      return { ...state, firstName: payload };
+    case OrderActionKind.LASTNAME:
+      return { ...state, lastName: payload };
+    default:
+      throw new Error();
+  }
+}
+
 export default function Home() {
+  const [state, dispatch] = useReducer(reducer, {
+    id: "0",
+    firstName: "Arnob",
+    lastName: "Ghosh",
+    address: "Badda",
+  });
+  const value = {
+    state,
+    dispatch,
+  };
+  console.log("state", state);
+
   return (
     <>
       <Head>
@@ -15,7 +52,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Checkout />
+        <OrderContext.Provider value={value}>
+          <Checkout dispatch={dispatch} />
+        </OrderContext.Provider>
       </main>
     </>
   );

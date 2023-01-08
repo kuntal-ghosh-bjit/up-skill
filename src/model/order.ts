@@ -4,7 +4,19 @@ import { IUser } from "./user";
 
 export interface IOrder {
   id?: string;
-  product: IProduct | IProduct[];
-  user: IUser;
-  paymentInfo: IPaymentInfo;
+  firstName: string;
+  lastName: string;
+  address: string;
+}
+
+// An enum with all the types of actions to use in our reducer
+export enum OrderActionKind {
+  firstName = "firstName",
+  lastName = "lastName",
+  address = "address",
+}
+// An interface for our actions
+export interface OrderAction {
+  type: OrderActionKind;
+  payload: string;
 }

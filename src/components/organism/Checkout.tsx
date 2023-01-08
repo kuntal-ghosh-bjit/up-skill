@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { Dispatch } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,7 +14,8 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
-import Review from "./Review";
+import Review from "../../pages/Review";
+import { IOrder } from "@/model/order";
 
 function Copyright() {
   return (
@@ -31,10 +32,10 @@ function Copyright() {
 
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
-function getStepContent(step: number) {
+function getStepContent(step: number, order: IOrder, dispatch: Dispatch<any>) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <AddressForm order={order} dispatch={dispatch} />;
     case 1:
       return <PaymentForm />;
     case 2:
@@ -45,8 +46,12 @@ function getStepContent(step: number) {
 }
 
 const theme = createTheme();
+type CheckoutProps = {
+  order: IOrder;
+  dispatch: Dispatch<any>;
+};
 
-export default function Checkout() {
+export default function Checkout({ order, dispatch }: CheckoutProps) {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -88,7 +93,7 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep)}
+              {getStepContent(activeStep, order, dispatch)}
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>

@@ -5,7 +5,7 @@ export type BaseComponentProps = {
 
 export type ModifiersDictionaryType = Record<
   string | number,
-  boolean | null | undefined
+  boolean | string | null | undefined
 >;
 
 export type ContainerProps = {
