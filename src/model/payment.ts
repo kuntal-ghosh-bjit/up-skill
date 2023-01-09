@@ -3,7 +3,7 @@ export interface IPaymentInfo {
   paymentMode: "CARD" | "MFS" | "COD";
   userId: string;
   nameOnCard: string;
-  cardNumber: number;
-  expiryDate: Date;
+  cardNumber: string;
+  expiryDate: string;
   cvv: string;
 }

@@ -47,8 +47,8 @@ function getStepContent(step: number, order: IOrder, dispatch: Dispatch<any>) {
 
 const theme = createTheme();
 type CheckoutProps = {
-  order: IOrder;
-  dispatch: Dispatch<any>;
+  order?: IOrder;
+  dispatch?: Dispatch<any>;
 };
 
 export default function Checkout({ order, dispatch }: CheckoutProps) {

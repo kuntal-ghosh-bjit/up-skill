@@ -6,19 +6,29 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { Input } from "@/components/atoms/input/input";
 import { OrderContext } from "@/contexts/OrderContext";
-import { IOrder } from "@/model/order";
+import { IOrder, OrderAction, OrderActionKind } from "@/model/order";
+import { useForm } from "@/hooks/useForm";
 
 type AddressFormProps = {
   order: IOrder;
-  dispatch: Dispatch<any>;
+  dispatch?: Dispatch<any>;
 };
 
-export default function AddressForm({ order, dispatch }: AddressFormProps) {
+export default function AddressForm({ order }: AddressFormProps) {
+  const { formState, dispatch } = useForm<IOrder, OrderAction>();
+  console.log("formState", formState);
+  console.log("order", order);
+
   const handleChange = (e: React.ChangeEvent<any>) => {
     console.log("event", e.target.name);
-    const { name, value } = e.target;
-    dispatch && dispatch({ type: "firstName", payload: value });
+    try {
+      const { name, value } = e.target;
+      dispatch({ type: name, payload: value });
+    } catch (error) {
+      console.log("error", error);
+    }
   };
+  console.log("formState", formState);
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -34,8 +44,8 @@ export default function AddressForm({ order, dispatch }: AddressFormProps) {
             fullWidth
             autoComplete="given-name"
             variant="standard"
-            defaultValue={order?.firstName}
-            value={order?.firstName}
+            defaultValue={formState?.firstName}
+            value={formState?.firstName}
             onChange={handleChange}
           />
         </Grid>
@@ -48,8 +58,8 @@ export default function AddressForm({ order, dispatch }: AddressFormProps) {
             fullWidth
             autoComplete="family-name"
             variant="standard"
-            defaultValue={order?.lastName}
-            value={order?.lastName}
+            defaultValue={formState?.lastName}
+            value={formState?.lastName}
             onChange={handleChange}
           />
         </Grid>
@@ -62,8 +72,8 @@ export default function AddressForm({ order, dispatch }: AddressFormProps) {
             fullWidth
             autoComplete="shipping address-line1"
             variant="standard"
-            defaultValue={order?.address}
-            value={order?.address}
+            defaultValue={formState?.address}
+            value={formState?.address}
             onChange={handleChange}
           />
         </Grid>

@@ -7,6 +7,8 @@ export interface IOrder {
   firstName: string;
   lastName: string;
   address: string;
+  product: Partial<IProduct>;
+  paymentInfo?: Partial<IPaymentInfo>;
 }
 
 // An enum with all the types of actions to use in our reducer

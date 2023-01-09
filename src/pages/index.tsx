@@ -1,9 +1,10 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
 import Checkout from "@/components/organism/Checkout";
-import { useReducer } from "react";
+import { Dispatch, useReducer, useState } from "react";
 import { IOrder } from "@/model/order";
 import { OrderContext } from "@/contexts/OrderContext";
+import { FormContext } from "@/contexts/formContext";
 const inter = Inter({ subsets: ["latin"] });
 
 // An enum with all the types of actions to use in our reducer
@@ -11,6 +12,10 @@ export enum OrderActionKind {
   FIRSTNAME = "firstName",
   LASTNAME = "lastName",
   ADDRESS = "address",
+  nameOnCard = "nameOnCard",
+  cardNumber = "cardNumber",
+  expiryDate = "expiryDate",
+  cvv = "cvv",
 }
 
 // An interface for our actions
@@ -25,24 +30,44 @@ function reducer(state: IOrder, { type, payload }: OrderAction): IOrder {
       return { ...state, firstName: payload };
     case OrderActionKind.LASTNAME:
       return { ...state, lastName: payload };
+    case OrderActionKind.ADDRESS:
+      return { ...state, address: payload };
+    case OrderActionKind.nameOnCard:
+      return {
+        ...state,
+        paymentInfo: { ...state.paymentInfo, nameOnCard: payload },
+      };
+    case OrderActionKind.cardNumber:
+      return {
+        ...state,
+        paymentInfo: { ...state.paymentInfo, cardNumber: payload },
+      };
+    case OrderActionKind.expiryDate:
+      return {
+        ...state,
+        paymentInfo: { ...state.paymentInfo, expiryDate: payload },
+      };
+    case OrderActionKind.expiryDate:
+      return { ...state, paymentInfo: { ...state.paymentInfo, cvv: payload } };
     default:
-      throw new Error();
+      return { ...state };
   }
 }
 
 export default function Home() {
-  const [state, dispatch] = useReducer(reducer, {
-    id: "0",
-    firstName: "Arnob",
-    lastName: "Ghosh",
-    address: "Badda",
-  });
+  const [state, dispatch] = useReducer<any, unknown>(reducer, {}, () => {});
   const value = {
     state,
     dispatch,
   };
-  console.log("state", state);
-
+  interface FormValues {
+    name: string;
+    email: string;
+  }
+  const [formState, setFormState] = useState<FormValues>({
+    name: "",
+    email: "",
+  });
   return (
     <>
       <Head>
@@ -52,9 +77,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <OrderContext.Provider value={value}>
-          <Checkout dispatch={dispatch} />
-        </OrderContext.Provider>
+        <FormContext.Provider
+          value={{
+            formState: state as IOrder,
+            dispatch,
+            resetForm: () => setFormState({ name: "", email: "" }),
+          }}
+        >
+          <Checkout />
+        </FormContext.Provider>
       </main>
     </>
   );
