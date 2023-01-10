@@ -68,12 +68,40 @@ export default function AddressForm({ order }: AddressFormProps) {
             required
             id="address"
             name="address"
-            label="Address line 1"
+            label="Address"
             fullWidth
             autoComplete="shipping address-line1"
             variant="standard"
             defaultValue={formState?.address}
             value={formState?.address}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Input
+            required
+            id="city"
+            name="city"
+            label="City"
+            fullWidth
+            autoComplete="given-name"
+            variant="standard"
+            defaultValue={formState?.city}
+            value={formState?.city}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="country"
+            name="country"
+            label="Country"
+            fullWidth
+            autoComplete="family-name"
+            variant="standard"
+            defaultValue={formState?.country}
+            value={formState?.country}
             onChange={handleChange}
           />
         </Grid>

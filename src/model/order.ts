@@ -7,6 +7,8 @@ export interface IOrder {
   firstName: string;
   lastName: string;
   address: string;
+  country: string;
+  city: string;
   product: Partial<IProduct>;
   paymentInfo?: Partial<IPaymentInfo>;
 }

@@ -12,6 +12,8 @@ export enum OrderActionKind {
   FIRSTNAME = "firstName",
   LASTNAME = "lastName",
   ADDRESS = "address",
+  city = "city",
+  country = "country",
   nameOnCard = "nameOnCard",
   cardNumber = "cardNumber",
   expiryDate = "expiryDate",
@@ -32,6 +34,10 @@ function reducer(state: IOrder, { type, payload }: OrderAction): IOrder {
       return { ...state, lastName: payload };
     case OrderActionKind.ADDRESS:
       return { ...state, address: payload };
+    case OrderActionKind.city:
+      return { ...state, city: payload };
+    case OrderActionKind.country:
+      return { ...state, country: payload };
     case OrderActionKind.nameOnCard:
       return {
         ...state,

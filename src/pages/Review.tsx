@@ -4,7 +4,32 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
+import Cart from "@/components/molecules/cart/cart";
+import { IProduct } from "@/model/product";
 
+const items: IProduct[] = [
+  {
+    name: "Product 1",
+    details: "A nice thing",
+    price: 9,
+  },
+  {
+    name: "Product 2",
+    details: "Another thing",
+    price: 3,
+  },
+  {
+    name: "Product 3",
+    details: "Something else",
+    price: 6,
+  },
+  {
+    name: "Product 4",
+    details: "Best thing of all",
+    price: 14,
+  },
+  { name: "Shipping", details: "", price: 10 },
+];
 const products = [
   {
     name: "Product 1",
@@ -56,6 +81,7 @@ export default function Review() {
           </Typography>
         </ListItem>
       </List>
+      <Cart items={items} />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
