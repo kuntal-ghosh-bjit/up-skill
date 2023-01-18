@@ -14,16 +14,12 @@ type AddressFormProps = {
 
 export default function PaymentForm() {
   const { formState: order, dispatch } = useForm<IOrder, OrderAction>();
-  console.log("order: ", order);
 
   const handleChange = (e: React.ChangeEvent<any>) => {
-    console.log("event", e.target.name);
     try {
       const { name, value } = e.target;
       dispatch({ type: name, payload: value });
-    } catch (error) {
-      console.log("error", error);
-    }
+    } catch (error) {}
   };
   return (
     <React.Fragment>

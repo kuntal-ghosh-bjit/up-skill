@@ -9,26 +9,17 @@ import { OrderContext } from "@/contexts/OrderContext";
 import { IOrder, OrderAction, OrderActionKind } from "@/model/order";
 import { useForm } from "@/hooks/useForm";
 
-type AddressFormProps = {
-  order: IOrder;
-  dispatch?: Dispatch<any>;
-};
+type AddressFormProps = {};
 
-export default function AddressForm({ order }: AddressFormProps) {
+export default function AddressForm({}: AddressFormProps) {
   const { formState, dispatch } = useForm<IOrder, OrderAction>();
-  console.log("formState", formState);
-  console.log("order", order);
 
   const handleChange = (e: React.ChangeEvent<any>) => {
-    console.log("event", e.target.name);
     try {
       const { name, value } = e.target;
       dispatch({ type: name, payload: value });
-    } catch (error) {
-      console.log("error", error);
-    }
+    } catch (error) {}
   };
-  console.log("formState", formState);
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>

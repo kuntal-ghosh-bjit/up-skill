@@ -32,10 +32,10 @@ function Copyright() {
 
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
-function getStepContent(step: number, order: IOrder, dispatch: Dispatch<any>) {
+function getStepContent(step: number) {
   switch (step) {
     case 0:
-      return <AddressForm order={order} dispatch={dispatch} />;
+      return <AddressForm />;
     case 1:
       return <PaymentForm />;
     case 2:
@@ -51,7 +51,7 @@ type CheckoutProps = {
   dispatch?: Dispatch<any>;
 };
 
-export default function Checkout({ order, dispatch }: CheckoutProps) {
+export default function Checkout({}: CheckoutProps) {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -93,7 +93,7 @@ export default function Checkout({ order, dispatch }: CheckoutProps) {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep, order, dispatch)}
+              {getStepContent(activeStep)}
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>

@@ -9,15 +9,24 @@ export interface IOrder {
   address: string;
   country: string;
   city: string;
-  product: Partial<IProduct>;
+  products: Partial<IProduct>[];
   paymentInfo?: Partial<IPaymentInfo>;
 }
 
 // An enum with all the types of actions to use in our reducer
 export enum OrderActionKind {
-  firstName = "firstName",
-  lastName = "lastName",
-  address = "address",
+  FIRSTNAME = "firstName",
+  LASTNAME = "lastName",
+  ADDRESS = "address",
+  city = "city",
+  country = "country",
+  nameOnCard = "nameOnCard",
+  cardNumber = "cardNumber",
+  expiryDate = "expiryDate",
+  cvv = "cvv",
+  productQuantity = "",
+  addProduct = "addProduct",
+  deleteProduct = "deleteProduct",
 }
 // An interface for our actions
 export interface OrderAction {
