@@ -85,24 +85,100 @@ export default function Review() {
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Shipping
           </Typography>
-          <Typography gutterBottom>{formState?.firstName}</Typography>
-          <Typography gutterBottom>{formState.address}</Typography>
+          <Grid container>
+            <React.Fragment key={formState.id}>
+              <Grid item xs={6}>
+                <Typography gutterBottom>Name</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>
+                  {formState?.firstName + " " + formState?.lastName}
+                </Typography>
+              </Grid>
+            </React.Fragment>
+          </Grid>
+          <Grid container>
+            <React.Fragment key={formState.id}>
+              <Grid item xs={6}>
+                <Typography gutterBottom>Address</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>{formState?.address}</Typography>
+              </Grid>
+            </React.Fragment>
+          </Grid>{" "}
+          <Grid container>
+            <React.Fragment key={formState.id}>
+              <Grid item xs={6}>
+                <Typography gutterBottom>City</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>{formState?.city}</Typography>
+              </Grid>
+            </React.Fragment>
+          </Grid>{" "}
+          <Grid container>
+            <React.Fragment key={formState.id}>
+              <Grid item xs={6}>
+                <Typography gutterBottom>Country</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>{formState?.country}</Typography>
+              </Grid>
+            </React.Fragment>
+          </Grid>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Payment details
           </Typography>
           <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
-                </Grid>
-              </React.Fragment>
-            ))}
+            <React.Fragment key={formState.id}>
+              <Grid item xs={6}>
+                <Typography gutterBottom>Name On Card</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>
+                  {formState.paymentInfo?.nameOnCard}
+                </Typography>
+              </Grid>
+            </React.Fragment>
+          </Grid>
+          <Grid container>
+            <React.Fragment key={formState.id}>
+              <Grid item xs={6}>
+                <Typography gutterBottom>Card Number</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>
+                  {formState.paymentInfo?.cardNumber}
+                </Typography>
+              </Grid>
+            </React.Fragment>
+          </Grid>{" "}
+          <Grid container>
+            <React.Fragment key={formState.id}>
+              <Grid item xs={6}>
+                <Typography gutterBottom>Expiry Date</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>
+                  {formState.paymentInfo?.expiryDate}
+                </Typography>
+              </Grid>
+            </React.Fragment>
+          </Grid>{" "}
+          <Grid container>
+            <React.Fragment key={formState.id}>
+              <Grid item xs={6}>
+                <Typography gutterBottom>CVV NO:</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>
+                  {formState.paymentInfo?.cvv}
+                </Typography>
+              </Grid>
+            </React.Fragment>
           </Grid>
         </Grid>
       </Grid>
